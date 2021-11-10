@@ -20,7 +20,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    - name: Install dependencies
+    - name: Dependencies
       run: |
         sudo apt-get install -y gcc-${{ matrix.gcc }} g++-${{ matrix.gcc }}
 
@@ -28,7 +28,6 @@ jobs:
       working-directory: examples
       run: make
 
-    # TODO: add a flag to CMake to compile unit tests only on CPU
-    - name: Run tests
+    - name: Tests
       working-directory: examples
       run: make test
