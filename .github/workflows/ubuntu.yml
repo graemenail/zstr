@@ -1,0 +1,34 @@
+name: Ubuntu
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build-ubuntu:
+    strategy:
+      matrix:
+        os: [ubuntu-18.04, ubuntu-20.04]
+        gcc: [8,9]
+
+    runs-on: ${{ matrix.os }}
+    name: ${{ matrix.os }}-gcc${{ matrix.gcc }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get install -y gcc-${{ matrix.gcc }} g++-${{ matrix.gcc }}
+
+    - name: Compile
+      working-directory: examples
+      run: make
+
+    # TODO: add a flag to CMake to compile unit tests only on CPU
+    - name: Run tests
+      working-directory: examples
+      run: make test
