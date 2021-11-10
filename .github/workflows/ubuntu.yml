@@ -15,6 +15,9 @@ jobs:
 
     runs-on: ${{ matrix.os }}
     name: ${{ matrix.os }}-gcc${{ matrix.gcc }}
+    env:
+      CC:   gcc-${{ matrix.gcc }}
+      CXX:  g++-${{ matrix.gcc }}
 
     steps:
     - name: Checkout
@@ -26,7 +29,7 @@ jobs:
 
     - name: Compile
       working-directory: examples
-      run: CC=gcc-${{ matrix.gcc }} CXX=g++-${{ matrix.gcc }} make VERBOSE=1
+      run: make VERBOSE=1; gcc --version
 
     - name: Run Tests
       working-directory: examples
