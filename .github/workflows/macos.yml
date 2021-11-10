@@ -25,7 +25,7 @@ jobs:
 
     - name: Dependencies
       run: |
-        brew install gcc@${{ matrix.gcc }} g++@${{ matrix.gcc }}
+        brew install gcc@${{ matrix.gcc }}
 
     - name: Compile
       working-directory: examples
